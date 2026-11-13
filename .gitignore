@@ -1,0 +1,7 @@
+*:Zone.Identifier
+.DS_Store
+__pycache__/
+*.pyc
+# third-party source trees, downloaded (re-downloadable; Galactica art not cleared)
+galactica-4-main/
+galactica-anno-dominari-3-master/
