@@ -10,3 +10,8 @@ notes and a sample save are tracked.
 | `GAD_SELF_WRITING_SCRIPTS.md` | code as data: the GAD stack that rewrites its own script (from the harvests) |
 | `GENERICA_TEMPLATE.md` | Generica (the owner's property-set stacks) as the template for GAD data (TODO A-12) |
 | `Galactica Game.gad4.json` | a sample Galactica save, the data shape to load |
+
+## In this folder since 16 Nov 2026
+
+- `GeneticAnomaly/`: the Genetic Anomaly Detector prototype, moved from LIB_GAMES (its home is here now)
+- `ui/GenericaAnyData_04042018a/`: the 2018 Galactica 3-based GUI (XTJSON harvest), the base for GAD's own UI

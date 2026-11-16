@@ -1,0 +1,40 @@
+{
+  "format": "livecode-harvest",
+  "formatVersion": 2,
+  "harvested": "Fri, 13 Nov 2026 01:38:11 -0800",
+  "livecodeVersion": "9.6.3",
+  "platform": "Win32",
+  "mainStack": "MapStack",
+  "sourceFile": "//wsl$/Ubuntu/home/igame3d/projects/LIB_LLMOUT/Read/LIB_XTJSON/Galactica_Deconstruction_09082021/GenericaAnyData_04042018a.livecode",
+  "milliseconds": 223,
+  "conventions": [
+    "Hierarchy: stack -> cards[] -> controls[]; a group nests its children in its own controls[].",
+    "controls[] is in layer order, back to front. layer is the control's layer number on its card (1 = backmost); a group and each of its children have their own layer numbers.",
+    "rect is [left, top, right, bottom] in pixels. Origin is the top-left of the card, y grows downward. A stack's rect is in screen coordinates; its size is [width, height].",
+    "props holds only the properties that differ from typeDefaults[type]. A property missing from both is empty or unset. With option sparse=false props holds every non-empty property instead.",
+    "Colors are [r, g, b], or a LiveCode color name or #hex string. A missing color or text property is inherited: control -> group -> card -> stack -> stack.effective.",
+    "icon, hiliteIcon and pattern values are ids of image objects.",
+    "custom holds the default custom property set; custom.$sets holds named sets. Empty custom properties are omitted.",
+    "script.file points to the unmodified script; script.handlers[].line is a 1-based line number in it.",
+    "{$file, chars} means the text value is stored in that file. {$binary, bytes} marks binary data.",
+    "A group with sharedRef:true is a shared group written in full on the card whose id is definedOnCard.",
+    "An empty name means the object was never named."
+  ],
+  "options": {"assets": true, "clean": true, "customSample": 0, "dedupeShared": true, "handlerIndex": true, "ideProps": false, "maxInline": 20000, "scripts": "files", "skipCustomKeys": "scriptBackUpPathList,propsBackUpPathList,functionRecord,handlerRecord,scriptLineCount,defaultBackupPath", "sparse": true, "substacks": true},
+  "counts": {"buttons": 27, "cards": 2, "controls": 157, "fields": 18, "files": 25, "graphics": 87, "groups": 18, "images": 3, "scripts": 21, "scrollbars": 3, "stacks": 1, "widgets": 1},
+  "stacks": [
+    {"name": "MapStack", "role": "main", "file": "stack_MapStack.json", "cards": 2, "controls": 157}
+  ],
+  "typeDefaults": {
+    "button": {"altId": 0, "armBorder": true, "armed": false, "armedIcon": 0, "armFill": false, "autoArm": false, "autoHilite": true, "blendLevel": 0, "borderWidth": 2, "cantSelect": false, "default": false, "disabled": false, "disabledIcon": 0, "family": 0, "hiliteBorder": true, "hilited": false, "hiliteFill": true, "hiliteIcon": 0, "hoverIcon": 0, "icon": 0, "ink": "srcCopy", "labelWidth": 0, "layerMode": "static", "lockLoc": false, "margins": 4, "menuHistory": 1, "menuLines": 5, "menuMouseButton": 1, "mnemonic": "0", "opaque": true, "shadow": false, "shadowOffset": 4, "sharedHilite": true, "showBorder": true, "showFocusBorder": true, "showHilite": false, "showIcon": false, "showName": true, "style": "standard", "textAlign": "center", "threeD": true, "titleWidth": 0, "traversalOn": true, "visible": true, "visitedIcon": 0},
+    "card": {"altId": 0, "blendLevel": 0, "borderWidth": 2, "cantDelete": false, "dontSearch": false, "ink": "srcCopy", "mark": false, "shadowOffset": 4, "showBorder": false, "threeD": true},
+    "field": {"altId": 0, "autoHilite": true, "autoTab": false, "blendLevel": 0, "borderWidth": 2, "cantSelect": false, "cursorMovement": "default", "disabled": false, "dontSearch": false, "dontWrap": false, "firstIndent": 0, "fixedLineHeight": true, "hGrid": false, "hScroll": 0, "hScrollbar": false, "ink": "srcCopy", "layerMode": "static", "listBehavior": false, "lockLoc": false, "lockText": false, "margins": 8, "multipleHilites": false, "noncontiguousHilites": false, "opaque": true, "scrollbarWidth": 20, "shadow": false, "shadowOffset": 4, "sharedText": false, "showBorder": true, "showFocusBorder": true, "showLines": false, "style": "rectangle", "textAlign": "left", "textDirection": "auto", "threeD": true, "threeDHilite": false, "toggleHilites": false, "traversalOn": true, "vGrid": false, "visible": true, "vScroll": 0, "vScrollbar": false},
+    "graphic": {"altId": 0, "angle": 0, "antialiased": true, "arcAngle": 360, "arrowSize": 3, "blendLevel": 0, "borderWidth": 2, "cantSelect": false, "capStyle": "round", "disabled": false, "dontResize": false, "editMode": "none", "endArrow": false, "filled": false, "fillRule": "none", "ink": "srcCopy", "joinStyle": "round", "layerMode": "static", "lineSize": 1, "lockLoc": false, "margins": 4, "markerDrawn": false, "markerFilled": false, "markerLineSize": 1, "miterLimit": 10, "opaque": false, "polySides": 4, "roundEnds": true, "roundRadius": 15, "shadowOffset": 4, "showBorder": false, "showFocusBorder": true, "showName": false, "startAngle": 0, "startArrow": false, "style": "rectangle", "threeD": true, "traversalOn": false, "visible": true},
+    "group": {"altId": 0, "backgroundBehavior": false, "blendLevel": 0, "borderWidth": 2, "cantDelete": false, "cantSelect": false, "clipsToRect": false, "disabled": false, "dontSearch": false, "hilitedButton": 0, "hScroll": 0, "hScrollbar": false, "ink": "srcCopy", "layerMode": "static", "lockLoc": false, "margins": 4, "opaque": false, "radioBehavior": true, "scrollbarWidth": 20, "selectGroupedControls": true, "shadowOffset": 4, "sharedBehavior": false, "showBorder": false, "showFocusBorder": true, "showName": false, "tabGroupBehavior": false, "threeD": true, "traversalOn": true, "unboundedHScroll": false, "unboundedVScroll": false, "visible": true, "vScroll": 0, "vScrollbar": false},
+    "image": {"altId": 0, "alwaysBuffer": false, "angle": 0, "blendLevel": 0, "borderWidth": 2, "cantSelect": false, "constantMask": false, "currentFrame": 1, "disabled": false, "dontDither": false, "hotSpot": [1,1], "ink": "srcCopy", "layerMode": "static", "lockLoc": false, "opaque": true, "palindromeFrames": false, "repeatCount": 0, "resizeQuality": "normal", "shadowOffset": 4, "showBorder": false, "showFocusBorder": true, "threeD": true, "traversalOn": false, "visible": true, "xHot": 1, "yHot": 1},
+    "player": {"altId": 0, "alwaysBuffer": false, "blendLevel": 0, "borderWidth": 2, "cantSelect": false, "disabled": false, "ink": "srcCopy", "layerMode": "static", "lockLoc": false, "looping": false, "opaque": true, "playRate": 1, "playSelection": false, "shadowOffset": 4, "showBadge": false, "showBorder": true, "showController": false, "showFocusBorder": true, "showSelection": false, "threeD": true, "traversalOn": true, "visible": true},
+    "scrollbar": {"altId": 0, "blendLevel": 0, "borderWidth": 2, "cantSelect": false, "disabled": false, "ink": "srcCopy", "layerMode": "static", "lineInc": 512, "lockLoc": false, "opaque": true, "pageInc": 8192, "shadowOffset": 4, "showBorder": true, "showFocusBorder": true, "showValue": false, "style": "scrollbar", "threeD": true, "thumbPosition": 0, "thumbSize": 8192, "traversalOn": true, "visible": true},
+    "stack": {"altId": 0, "alwaysBuffer": false, "blendLevel": 0, "cantAbort": false, "cantDelete": false, "cantModify": false, "decorations": "title,menu,minimize,maximize,close", "destroyStack": false, "destroyWindow": false, "dynamicPaths": false, "editMenus": false, "formatForPrinting": false, "fullscreen": false, "hcAddressing": false, "icon": 0, "iconic": false, "liveResizing": true, "maxHeight": 65535, "maxWidth": 65535, "metal": false, "minHeight": 32, "minWidth": 32, "resizable": true, "scalefactor": 1, "shadow": true, "shadowOffset": 4, "startUpIconic": false, "style": "toplevel", "systemWindow": false, "visible": false, "windowManagerPlace": false, "windowShape": 0}
+  },
+  "errors": []
+}

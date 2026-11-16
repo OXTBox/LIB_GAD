@@ -1,0 +1,2341 @@
+{
+  "type": "stack", "name": "MapStack", "role": "main", "id": 15700,
+  "rect": [132,144,852,744],
+  "size": [720,600],
+  "file": "//wsl$/Ubuntu/home/igame3d/projects/LIB_LLMOUT/Read/LIB_XTJSON/Galactica_Deconstruction_09082021/GenericaAnyData_04042018a.livecode",
+  "props": {"backColor": "Gray10", "linkColor": [173,208,54], "linkHiliteColor": [255,0,0], "linkVisitedColor": [128,255,255], "resizable": false, "textSize": 9, "title": "Generica: Any Data", "underlineLinks": false, "visible": true},
+  "effective": {"textFont": "Segoe UI", "textSize": 9, "textStyle": "plain", "foregroundColor": [0,0,0], "backgroundColor": "Gray10"},
+  "custom": {
+    "cCurrentGameTurn": 1,
+    "cCurrentGridSize": 12,
+    "cPlayer0TurfList": "player0",
+    "mapTool": "SendTo",
+    "selectedMapObjectName": "graphic \"player1\"",
+    "SendToList": "142,398\n309,249\n309,249\n309,249\n309,249\n309,249\n309,249\n320,317\n320,317\n320,317\n320,317\n320,317\n323,385\n323,385\n323,385\n323,385\n216,374\n216,375\n216,375\n216,375\n231,407\n231,407\n231,407\n231,407\n231,407\n231,407\n219,427\n218,427\n215,430\n210,431\n205,433\n201,433\n201,433\n174,442\n174,442\n174,442\n174,442\n174,442\n174,447\n172,459\n172,459\n172,459\n172,459\n172,459\n156,460\n154,462\n154,463\n153,463\n153,463\n153,463\n153,463\n153,463\n152,480\n152,480\n152,480\n152,480\n152,480\n101,476\n99,476\n99,476\n99,476\n99,476\n181,236\n181,236\n181,236\n241,221\n241,221\n241,221\n241,221\n293,247\n293,247\n293,247\n293,247\n293,247\n293,247\n293,247\n293,247\n330,412\n330,412\n330,412\n436,363\n436,363\n428,338\n428,338\n407,290\n407,290\n465,155",
+    "tempPoints": "220,321\n197,347",
+    "TurfSent": false
+  },
+  "script": {
+    "file": "scripts/MapStack__stack.livecodescript", "lines": 676,
+    "handlers": [
+      {"line": 1, "type": "function", "name": "listControls", "params": "o,n"},
+      {"line": 21, "type": "function", "name": "getOProp", "params": "tObj, tProp"},
+      {"line": 33, "type": "function", "name": "SendToPoint", "params": "n1,n2,tGridSize"},
+      {"line": 38, "type": "on", "name": "setOProp", "params": "tObj,tProp,tVal"},
+      {"line": 53, "type": "on", "name": "SendToTool"},
+      {"line": 129, "type": "on", "name": "RedrawMapGroup", "params": "tGridSize"},
+      {"line": 159, "type": "on", "name": "rawKeyDown", "params": "theKey"},
+      {"line": 192, "type": "on", "name": "ResizeGrid", "params": "tAmount"},
+      {"line": 219, "type": "on", "name": "PlayerOriginStart", "params": "x,y,playername,tColor1,tColor2"},
+      {"line": 243, "type": "on", "name": "PlayerTurn", "params": "playerName"},
+      {"line": 312, "type": "on", "name": "DefaultTurfMarker"},
+      {"line": 325, "type": "on", "name": "TurfGameProps"},
+      {"line": 347, "type": "on", "name": "GenerateTurf"},
+      {"line": 409, "type": "on", "name": "NextGameTurn"},
+      {"line": 420, "type": "on", "name": "DeselectPrevious"},
+      {"line": 441, "type": "on", "name": "SelectUnderMouse"},
+      {"line": 499, "type": "on", "name": "ScrollbarDrag"},
+      {"line": 545, "type": "on", "name": "SetScrollProps"},
+      {"line": 557, "type": "on", "name": "SetScroll", "params": "n,val"},
+      {"line": 566, "type": "on", "name": "UpdatePosition", "params": "x,y"},
+      {"line": 571, "type": "on", "name": "UpdateName", "params": "tName"},
+      {"line": 578, "type": "on", "name": "SetGridSizeAndMakeGrid", "params": "tSize"},
+      {"line": 588, "type": "on", "name": "mouseDown"},
+      {"line": 636, "type": "on", "name": "mouseUp", "params": "bt"}
+    ]
+  },
+  "cards": [
+    {
+      "type": "card", "name": "TurfInfo", "id": 1002, "number": 1,
+      "props": {"backPattern": 9415},
+      "controls": [
+        {
+          "type": "group", "name": "RightSideBar", "id": 4543, "layer": 1, "rect": [493,0,721,626],
+          "props": {"backColor": [102,102,102], "backgroundBehavior": true, "lockLoc": true, "opaque": true, "sharedBehavior": true},
+          "controls": [
+            {
+              "type": "widget", "name": "Navigation Bar", "id": 4545, "layer": 2, "rect": [500,99,715,148],
+              "kind": "com.livecode.widget.navbar",
+              "script": {
+                "file": "scripts/MapStack__widget_4545_Navigation_Bar.livecodescript", "lines": 9,
+                "handlers": [
+                  {"line": 5, "type": "on", "name": "hiliteChanged"}
+                ]
+              }
+            },
+            {
+              "type": "image", "name": "streetscene", "id": 4546, "layer": 3, "rect": [496,30,716,101],
+              "props": {"repeatCount": -1},
+              "asset": "assets/MapStack__image_4546_streetscene.png"
+            },
+            {
+              "type": "field", "name": "MapSelectionNameLabel", "id": 4547, "layer": 4, "rect": [506,4,717,25],
+              "props": {"autoHilite": false, "dontWrap": true, "fixedLineHeight": false, "foreColor": [255,255,255], "lockText": true, "opaque": false, "sharedText": true, "showBorder": false, "style": "transparent", "textSize": 10, "textStyle": "bold", "traversalOn": false},
+              "text": "player1"
+            },
+            {
+              "type": "group", "name": "showGridWidget", "id": 9409, "layer": 5, "rect": [559,407,660,522],
+              "props": {"backColor": [242,242,242], "ink": "blendMultiply", "margins": 0, "opaque": true, "selectGroupedControls": false, "visible": false},
+              "custom": {
+                "cWindowShape": 1077,
+                "uOrigBackgroundPattern": 9313
+              },
+              "script": {
+                "file": "scripts/MapStack__group_9409_showGridWidget.livecodescript", "lines": 148,
+                "handlers": [
+                  {"line": 4, "type": "on", "name": "makeGrid"},
+                  {"line": 27, "type": "on", "name": "mouseUp"},
+                  {"line": 46, "type": "function", "name": "snapToGrid", "params": "pPoint, pChoice, pGrid", "private": true},
+                  {"line": 86, "type": "on", "name": "preOpenControl"},
+                  {"line": 97, "type": "on", "name": "openControl"},
+                  {"line": 102, "type": "on", "name": "deleteGroup"},
+                  {"line": 130, "type": "on", "name": "checkAndStoreBGColor"},
+                  {"line": 137, "type": "on", "name": "checkAndRestoreBGColor"},
+                  {"line": 141, "type": "on", "name": "mouseDown"}
+                ]
+              },
+              "controls": [
+                {
+                  "type": "image", "name": "skin", "id": 9410, "layer": 6, "rect": [546,397,674,528],
+                  "props": {"alwaysBuffer": true, "borderWidth": 1, "repeatCount": -1, "showBorder": true, "threeD": false, "visible": false},
+                  "asset": "assets/MapStack__image_9410_skin.png"
+                },
+                {
+                  "type": "graphic", "name": "bgGrab", "id": 9411, "layer": 7, "rect": [599,460,609,470],
+                  "props": {"backColor": [206,208,237], "blendLevel": 100, "filled": true, "foreColor": "white", "opaque": true}
+                },
+                {
+                  "type": "group", "name": "bnGrid", "id": 9412, "layer": 8, "rect": [602,471,614,483],
+                  "props": {"borderWidth": 0, "margins": [-1,-1,0,0], "visible": false},
+                  "controls": [
+                    {
+                      "type": "graphic", "name": "hLine", "id": 9413, "layer": 9, "rect": [601,481,614,483],
+                      "props": {"antialiased": false, "borderWidth": 0, "foreColor": [128,255,255], "margins": 0, "style": "line", "threeD": false},
+                      "points": [[602,482],[613,482]]
+                    },
+                    {
+                      "type": "graphic", "name": "vLine", "id": 9414, "layer": 10, "rect": [612,470,614,483],
+                      "props": {"antialiased": false, "foreColor": [128,255,255], "style": "line"},
+                      "points": [[613,471],[613,482]]
+                    },
+                    {
+                      "type": "image", "name": "bgPattern", "id": 9415, "layer": 11, "rect": [707,424,719,436],
+                      "props": {"repeatCount": -1, "visible": false},
+                      "asset": "assets/MapStack__image_9415_bgPattern.png"
+                    }
+                  ]
+                },
+                {
+                  "type": "button", "name": "gridMaker", "id": 9416, "layer": 12, "rect": [561,451,635,466],
+                  "props": {"label": "hide Grid", "textSize": 13, "toolTip": "show grid/hide grid", "traversalOn": false},
+                  "script": {
+                    "file": "scripts/MapStack__button_9416_gridMaker.livecodescript", "lines": 19,
+                    "handlers": [
+                      {"line": 1, "type": "on", "name": "mouseUp"}
+                    ]
+                  }
+                },
+                {
+                  "type": "button", "name": "gridOnOff", "id": 9417, "layer": 13, "rect": [559,499,657,522],
+                  "props": {"hiliteBorder": false, "label": "Snap to grid", "opaque": false, "showBorder": false, "style": "checkbox", "textAlign": "left", "toolTip": "turns snap-to-grid on or off"},
+                  "script": {
+                    "file": "scripts/MapStack__button_9417_gridOnOff.livecodescript", "lines": 3,
+                    "handlers": [
+                      {"line": 1, "type": "on", "name": "mouseUp"}
+                    ]
+                  }
+                },
+                {
+                  "type": "field", "name": "gridSpacing", "id": 9418, "layer": 14, "rect": [559,471,589,492],
+                  "props": {"toolTip": "enter integer for grid size\nand hit return"},
+                  "text": "2",
+                  "script": {
+                    "file": "scripts/MapStack__field_9418_gridSpacing.livecodescript", "lines": 29,
+                    "handlers": [
+                      {"line": 1, "type": "on", "name": "keyDown", "params": "pKey"},
+                      {"line": 5, "type": "on", "name": "enterInField"},
+                      {"line": 9, "type": "on", "name": "returnInField"},
+                      {"line": 13, "type": "on", "name": "closeField"},
+                      {"line": 17, "type": "on", "name": "tabKey"},
+                      {"line": 21, "type": "on", "name": "setGridSizeAndMakeGrid"}
+                    ]
+                  }
+                },
+                {
+                  "type": "field", "name": "Label Field", "id": 9419, "layer": 15, "rect": [592,471,657,492],
+                  "props": {"autoHilite": false, "dontWrap": true, "lockText": true, "opaque": false, "sharedText": true, "showBorder": false, "style": "transparent", "toolTip": "enter integer for grid size\nand hit return", "traversalOn": false},
+                  "text": "Grid size"
+                },
+                {
+                  "type": "group", "name": "groupClearButton", "id": 9420, "layer": 16, "rect": [633,407,660,434],
+                  "script": {
+                    "file": "scripts/MapStack__group_9420_groupClearButton.livecodescript", "lines": 6,
+                    "handlers": [
+                      {"line": 1, "type": "on", "name": "mouseUp"}
+                    ]
+                  },
+                  "controls": [
+                    {
+                      "type": "graphic", "name": "Oval", "id": 9421, "layer": 17, "rect": [637,411,656,430],
+                      "props": {"backColor": [117,122,128], "filled": true, "lineSize": 0, "opaque": true, "style": "oval", "toolTip": "removes widget"}
+                    },
+                    {
+                      "type": "graphic", "name": "Line", "id": 9422, "layer": 18, "rect": [641,415,651,425],
+                      "props": {"foreColor": "white", "style": "line", "toolTip": "removes widget"},
+                      "points": [[642,416],[650,424]]
+                    },
+                    {
+                      "type": "graphic", "name": "Line", "id": 9423, "layer": 19, "rect": [641,415,651,425],
+                      "props": {"foreColor": [255,255,255], "lineSize": 2, "style": "line", "toolTip": "removes widget"},
+                      "points": [[649,417],[643,423]]
+                    }
+                  ]
+                },
+                {
+                  "type": "button", "name": "grouphider", "id": 10366, "layer": 20, "rect": [559,414,633,429],
+                  "props": {"label": "hide group", "textSize": 13, "toolTip": "hide this group", "traversalOn": false},
+                  "script": {
+                    "file": "scripts/MapStack__button_10366_grouphider.livecodescript", "lines": 3,
+                    "handlers": [
+                      {"line": 1, "type": "on", "name": "mouseUp"}
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "group", "name": "HomeGroup", "id": 4544, "layer": 21, "rect": [497,149,714,561],
+          "props": {"borderWidth": 0, "lockLoc": true, "radioBehavior": false, "tabGroupBehavior": true, "threeD": false, "traversalOn": false},
+          "controls": [
+            {
+              "type": "button", "name": "BoonButton", "id": 15308, "layer": 22, "rect": [619,153,702,176],
+              "props": {"autoHilite": false, "foreColor": "White", "label": "Boon: 1", "opaque": false, "sharedHilite": false, "showBorder": false, "showFocusBorder": false, "style": "rectangle", "textAlign": "right", "textSize": 10, "textStyle": "bold", "threeD": false, "traversalOn": false}
+            },
+            {
+              "type": "group", "name": "SlidersGroup", "id": 4794, "layer": 23, "rect": [498,283,712,372],
+              "props": {"backColor": "Gray41", "opaque": true},
+              "controls": [
+                {
+                  "type": "field", "name": "Label Field", "id": 4795, "layer": 24, "rect": [502,289,584,310],
+                  "props": {"autoHilite": false, "dontWrap": true, "fixedLineHeight": false, "foreColor": "White", "lockText": true, "opaque": false, "sharedText": true, "showBorder": false, "style": "transparent", "textSize": 10, "textStyle": "bold", "traversalOn": false},
+                  "text": "Community:"
+                },
+                {
+                  "type": "field", "name": "Label Field", "id": 4796, "layer": 25, "rect": [502,319,584,340],
+                  "props": {"autoHilite": false, "dontWrap": true, "fixedLineHeight": false, "foreColor": "White", "lockText": true, "opaque": false, "sharedText": true, "showBorder": false, "style": "transparent", "textSize": 10, "textStyle": "bold", "traversalOn": false},
+                  "text": "Personnel:"
+                },
+                {
+                  "type": "field", "name": "Label Field", "id": 4797, "layer": 26, "rect": [502,347,584,368],
+                  "props": {"autoHilite": false, "dontWrap": true, "fixedLineHeight": false, "foreColor": "White", "lockText": true, "opaque": false, "sharedText": true, "showBorder": false, "style": "transparent", "textSize": 10, "textStyle": "bold", "traversalOn": false},
+                  "text": "Advantage:"
+                },
+                {
+                  "type": "scrollbar", "name": "TurfScrollbar1", "id": 4798, "layer": 27, "rect": [567,291,691,307],
+                  "props": {"endValue": 33, "lineInc": 0, "pageInc": 0.999527, "startValue": 1, "style": "scale", "thumbPosition": 17, "thumbSize": 0.999527},
+                  "custom": {
+                    "lastThumbPosition": 25,
+                    "thumbPostion": 33
+                  }
+                },
+                {
+                  "type": "scrollbar", "name": "TurfScrollbar2", "id": 5399, "layer": 28, "rect": [567,321,691,337],
+                  "props": {"endValue": 33, "lineInc": 0, "pageInc": 0.999527, "showValue": true, "startValue": 1, "style": "scale", "thumbPosition": 17, "thumbSize": 0.999527},
+                  "custom": {
+                    "lastThumbPosition": 22,
+                    "thumbPostion": 33
+                  }
+                },
+                {
+                  "type": "scrollbar", "name": "TurfScrollbar3", "id": 4800, "layer": 29, "rect": [567,350,691,366],
+                  "props": {"endValue": 33, "lineInc": 0, "pageInc": 0.999527, "showValue": true, "startValue": 1, "style": "scale", "thumbPosition": 17, "thumbSize": 0.999527},
+                  "custom": {
+                    "lastThumbPosition": 18,
+                    "thumbPostion": 33
+                  }
+                },
+                {
+                  "type": "group", "name": "LockGroup1", "id": 4801, "layer": 30, "rect": [692,287,708,308],
+                  "props": {"borderWidth": 0, "threeD": false},
+                  "custom": {
+                    "cActive": false
+                  },
+                  "script": {
+                    "file": "scripts/MapStack__group_4801_LockGroup1.livecodescript", "lines": 17,
+                    "handlers": [
+                      {"line": 1, "type": "on", "name": "mouseUp"}
+                    ]
+                  },
+                  "controls": [
+                    {
+                      "type": "graphic", "name": "Rectangle", "id": 4802, "layer": 31, "rect": [696,296,704,304],
+                      "props": {"backColor": [0,0,0], "blendLevel": 69, "filled": true, "margins": 8, "opaque": true}
+                    },
+                    {
+                      "type": "graphic", "name": "Oval", "id": 4803, "layer": 32, "rect": [696,291,704,299],
+                      "props": {"angle": 270, "arcAngle": 180, "blendLevel": 69, "foreColor": [0,0,0], "lineSize": 2, "margins": 8, "startAngle": 270, "style": "oval"}
+                    }
+                  ]
+                },
+                {
+                  "type": "group", "name": "LockGroup2", "id": 4804, "layer": 33, "rect": [692,318,708,338],
+                  "custom": {
+                    "cActive": false
+                  },
+                  "script": {
+                    "file": "scripts/MapStack__group_4804_LockGroup2.livecodescript", "lines": 17,
+                    "handlers": [
+                      {"line": 1, "type": "on", "name": "mouseUp"}
+                    ]
+                  },
+                  "controls": [
+                    {
+                      "type": "graphic", "name": "Rectangle", "id": 4805, "layer": 34, "rect": [696,326,704,334],
+                      "props": {"backColor": [0,0,0], "blendLevel": 69, "filled": true, "margins": 8, "opaque": true}
+                    },
+                    {
+                      "type": "graphic", "name": "Oval", "id": 4806, "layer": 35, "rect": [696,322,704,330],
+                      "props": {"angle": 270, "arcAngle": 180, "blendLevel": 69, "foreColor": [0,0,0], "lineSize": 2, "margins": 8, "startAngle": 270, "style": "oval"}
+                    }
+                  ]
+                },
+                {
+                  "type": "group", "name": "LockGroup3", "id": 4807, "layer": 36, "rect": [692,347,708,367],
+                  "custom": {
+                    "cActive": false
+                  },
+                  "script": {
+                    "file": "scripts/MapStack__group_4807_LockGroup3.livecodescript", "lines": 17,
+                    "handlers": [
+                      {"line": 1, "type": "on", "name": "mouseUp"}
+                    ]
+                  },
+                  "controls": [
+                    {
+                      "type": "graphic", "name": "Rectangle", "id": 4808, "layer": 37, "rect": [696,355,704,363],
+                      "props": {"backColor": [0,0,0], "blendLevel": 69, "filled": true, "margins": 8, "opaque": true}
+                    },
+                    {
+                      "type": "graphic", "name": "Oval", "id": 4809, "layer": 38, "rect": [696,351,704,359],
+                      "props": {"angle": 270, "arcAngle": 180, "blendLevel": 69, "foreColor": [0,0,0], "lineSize": 2, "margins": 8, "startAngle": 270, "style": "oval"}
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "group", "name": "ProductionGroup", "id": 10594, "layer": 39, "rect": [498,192,711,282],
+              "controls": [
+                {
+                  "type": "button", "name": "DevelopMenu", "id": 4818, "layer": 40, "rect": [560,197,628,215],
+                  "props": {"armBorder": false, "autoHilite": false, "foreColor": "Gray0", "label": "Patrol", "lockLoc": true, "menuHistory": 2, "menuMode": "option", "style": "menu", "textAlign": "left", "textSize": 11, "traversalOn": false},
+                  "text": "Sentry\nPatrol\nLeader\nEnforcer",
+                  "script": {
+                    "file": "scripts/MapStack__button_4818_DevelopMenu.livecodescript", "lines": 11,
+                    "handlers": [
+                      {"line": 1, "type": "on", "name": "menuPick", "params": "pItemName"}
+                    ]
+                  }
+                },
+                {
+                  "type": "field", "name": "DevelopLabel", "id": 4819, "layer": 41, "rect": [502,196,566,217],
+                  "props": {"autoHilite": false, "dontWrap": true, "fixedLineHeight": false, "foreColor": "White", "lockText": true, "opaque": false, "sharedText": true, "showBorder": false, "style": "transparent", "textSize": 10, "textStyle": "bold", "traversalOn": false},
+                  "text": "Develop:"
+                },
+                {
+                  "type": "group", "name": "SendToButtonGroup", "id": 4810, "layer": 42, "rect": [560,240,598,278],
+                  "props": {"backColor": [95,95,95], "borderWidth": 1, "cantDelete": true, "opaque": true, "radioBehavior": false, "selectGroupedControls": false, "traversalOn": false},
+                  "controls": [
+                    {
+                      "type": "graphic", "name": "sendto1", "id": 4812, "layer": 43, "rect": [571,262,577,268],
+                      "props": {"angle": 20, "backColor": [0,0,0], "blendLevel": 31, "filled": true, "foreColor": [192,192,192], "lockLoc": true, "margins": 8, "opaque": true, "polySides": 3, "style": "regular"},
+                      "custom": {
+                        "SendToList": "596,286\n346,199\n346,199\n309,257\n345,341\n345,341\n345,341\n345,341\n426,489\n426,489\n426,489\n426,489\n426,489\n429,487\n429,487\n429,487\n429,487\n429,487\n429,487\n429,487\n429,487\n429,487\n429,487\n429,487\n429,487\n429,487\n429,487\n429,487\n197,347\n197,347\n197,346\n286,352\n286,352\n296,351\n374,307\n374,307\n375,307\n387,341\n386,344\n384,344\n381,345\n261,362\n260,363\n257,363\n254,365\n248,378\n250,381\n250,381\n269,386\n308,386\n362,378\n362,378\n360,367\n308,281\n301,280\n303,267\n303,267\n303,267\n303,267\n423,485\n423,485\n423,485\n423,485\n423,485\n423,485\n423,485\n423,485\n423,485\n423,485\n423,485\n423,485"
+                      }
+                    },
+                    {
+                      "type": "graphic", "name": "sendto2", "id": 4813, "layer": 44, "rect": [574,249,576,251],
+                      "props": {"backColor": [0,0,0], "blendLevel": 31, "filled": true, "foreColor": [192,192,192], "lockLoc": true, "margins": 8, "opaque": true}
+                    },
+                    {
+                      "type": "graphic", "name": "sendto3", "id": 4814, "layer": 45, "rect": [587,255,589,258],
+                      "props": {"backColor": [0,0,0], "blendLevel": 31, "filled": true, "foreColor": [192,192,192], "lockLoc": true, "margins": 8, "opaque": true}
+                    },
+                    {
+                      "type": "graphic", "name": "sendto4", "id": 4815, "layer": 46, "rect": [582,265,584,267],
+                      "props": {"backColor": [0,0,0], "blendLevel": 31, "filled": true, "foreColor": [192,192,192], "lockLoc": true, "margins": 8, "opaque": true}
+                    },
+                    {
+                      "type": "graphic", "name": "SendtoPolygon", "id": 4816, "layer": 47, "rect": [574,249,589,267],
+                      "props": {"blendLevel": 31, "foreColor": [192,192,192], "lockLoc": true, "style": "polygon"},
+                      "points": [[575,266],[575,250],[588,256],[583,266]],
+                      "script": {
+                        "file": "scripts/MapStack__graphic_4816_SendtoPolygon.livecodescript", "lines": 8,
+                        "handlers": [
+                          {"line": 1, "type": "on", "name": "mouseUp"}
+                        ]
+                      }
+                    },
+                    {
+                      "type": "button", "name": "SendToButton", "id": 10398, "layer": 48, "rect": [564,244,594,274],
+                      "props": {"autoHilite": false, "lockLoc": true, "opaque": false, "sharedHilite": false, "showName": false, "style": "transparent", "toolTip": "Destinations for development", "traversalOn": false},
+                      "script": {
+                        "file": "scripts/MapStack__button_10398_SendToButton.livecodescript", "lines": 12,
+                        "handlers": [
+                          {"line": 1, "type": "on", "name": "mouseUp"}
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "button", "name": "CompletionButton", "id": 15572, "layer": 49, "rect": [639,197,707,215],
+                  "props": {"autoHilite": false, "foreColor": "White", "label": "Training: xx%", "opaque": false, "sharedHilite": false, "showBorder": false, "showFocusBorder": false, "style": "rectangle", "textAlign": "right", "textSize": 10, "textStyle": "bold", "threeD": false, "traversalOn": false}
+                },
+                {
+                  "type": "button", "name": "Sendtobuttonlabel", "id": 15573, "layer": 50, "rect": [502,250,566,268],
+                  "props": {"autoHilite": false, "foreColor": "White", "label": "Send to", "margins": 8, "opaque": false, "sharedHilite": false, "showBorder": false, "showFocusBorder": false, "style": "rectangle", "textAlign": "left", "textSize": 10, "textStyle": "bold", "threeD": false, "traversalOn": false}
+                }
+              ]
+            },
+            {
+              "type": "field", "name": "StatusUpdate", "id": 10855, "layer": 51, "rect": [510,395,708,528],
+              "props": {"autoHilite": false, "backColor": [105,105,105], "borderWidth": 4, "dontSearch": true, "fixedLineHeight": false, "focusColor": "Gray50", "foreColor": [255,255,0], "lockText": true, "scrollbarWidth": 12, "sharedText": true, "showBorder": false, "style": "scrolling", "textSize": 10, "traversalOn": false, "vScrollbar": true},
+              "script": {
+                "file": "scripts/MapStack__field_10855_StatusUpdate.livecodescript", "lines": 3,
+                "handlers": [
+                  {"line": 1, "type": "on", "name": "mouseUp"}
+                ]
+              }
+            },
+            {
+              "type": "field", "name": "Label Field", "id": 10856, "layer": 52, "rect": [504,375,709,396],
+              "props": {"autoHilite": false, "dontWrap": true, "fixedLineHeight": false, "foreColor": "Gray50", "lockText": true, "opaque": false, "sharedText": true, "showBorder": false, "style": "transparent", "textAlign": "center", "textSize": 10, "textStyle": "bold", "traversalOn": false},
+              "text": "Status:"
+            },
+            {
+              "type": "button", "name": "PositionButton", "id": 15314, "layer": 53, "rect": [502,153,584,176],
+              "props": {"autoHilite": false, "foreColor": "White", "label": "Position: 23,29", "margins": 8, "opaque": false, "sharedHilite": false, "showBorder": false, "showFocusBorder": false, "style": "rectangle", "textAlign": "left", "textSize": 10, "textStyle": "bold", "threeD": false, "traversalOn": false}
+            },
+            {
+              "type": "button", "name": "PopulationButton", "id": 15315, "layer": 54, "rect": [502,170,584,193],
+              "props": {"autoHilite": false, "foreColor": "White", "label": "Citizens: 1000", "margins": 8, "opaque": false, "sharedHilite": false, "showBorder": false, "showFocusBorder": false, "style": "rectangle", "textAlign": "left", "textSize": 10, "textStyle": "bold", "threeD": false, "traversalOn": false}
+            }
+          ]
+        },
+        {
+          "type": "button", "name": "mapannouncement", "id": 1807, "layer": 55, "rect": [1,30,496,556],
+          "props": {"autoHilite": false, "disabled": true, "foreColor": "green", "label": "Creating Map\n", "opaque": false, "sharedHilite": false, "showBorder": false, "showFocusBorder": false, "style": "transparent", "textSize": 64, "textStyle": "bold,italic", "threeD": false, "traversalOn": false, "visible": false}
+        },
+        {
+          "type": "group", "name": "Mapgroup", "id": 6563, "layer": 56, "rect": [1,30,496,556],
+          "props": {"backgroundBehavior": true, "borderWidth": 5, "boundingRect": [1,30,959,988], "cantDelete": true, "hScrollbar": true, "lockLoc": true, "radioBehavior": false, "scrollbarWidth": 12, "selectGroupedControls": false, "sharedBehavior": true, "showBorder": true, "vScrollbar": true},
+          "custom": {
+            "mapTool": "Select",
+            "resize": false,
+            "spawnCoordinates": "46,32\n15,30\n35,58\n56,46\n15,33\n35,55\n54,28\n58,38\n41,21\n60,21\n15,30\n17,33\n50,60\n16,42\n58,19\n22,31\n47,26\n24,58\n51,14\n23,31\n14,54\n59,30\n46,32\n12,12\n45,49\n32,59\n45,12\n37,57\n45,45\n32,55\n43,44\n45,38\n16,21\n59,52\n20,48\n43,23\n11,37\n16,12\n12,53\n54,57\n58,32\n48,16\n31,50\n43,33\n35,48\n40,38\n23,29\n13,42\n18,48\n47,21\n44,28\n47,40\n46,41\n60,21\n43,53\n37,52\n42,21\n41,45\n15,39\n41,29\n16,13\n44,37\n55,59\n18,35"
+          },
+          "controls": [
+            {
+              "type": "graphic", "name": "x:46 y:32", "id": 15581, "layer": 57, "rect": [559,420,567,428],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "46,32",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:15 y:30", "id": 15582, "layer": 58, "rect": [186,395,196,405],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "15,30",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:35 y:58", "id": 15583, "layer": 59, "rect": [427,732,435,740],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "35,58",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:56 y:46", "id": 15584, "layer": 60, "rect": [679,588,687,596],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "56,46",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:15 y:33", "id": 15585, "layer": 61, "rect": [187,432,195,440],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "15,33",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:35 y:55", "id": 15586, "layer": 62, "rect": [427,696,435,704],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "35,55",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:54 y:28", "id": 15587, "layer": 63, "rect": [655,372,663,380],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "54,28",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:58 y:38", "id": 15588, "layer": 64, "rect": [703,492,711,500],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "58,38",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:41 y:21", "id": 15589, "layer": 65, "rect": [498,287,508,297],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "41,21",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:60 y:21", "id": 15590, "layer": 66, "rect": [727,288,735,296],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "60,21",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:15 y:30", "id": 15591, "layer": 67, "rect": [-3207,-1220,-3199,-1212],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "15,30",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:17 y:33", "id": 15592, "layer": 68, "rect": [210,431,220,441],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "17,33",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "player0", "id": 15593, "layer": 69, "rect": [607,756,615,764],
+              "props": {"backColor": "orange", "filled": true, "foreColor": "Red", "lineSize": 2, "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "player0",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "50,60",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:16 y:42", "id": 15594, "layer": 70, "rect": [199,540,207,548],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "16,42",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:58 y:19", "id": 15595, "layer": 71, "rect": [703,264,711,272],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "58,19",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:22 y:31", "id": 15596, "layer": 72, "rect": [271,408,279,416],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "22,31",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:47 y:26", "id": 15597, "layer": 73, "rect": [571,348,579,356],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "47,26",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:24 y:58", "id": 15598, "layer": 74, "rect": [295,732,303,740],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "24,58",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:51 y:14", "id": 15599, "layer": 75, "rect": [619,204,627,212],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "51,14",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:23 y:31", "id": 15600, "layer": 76, "rect": [282,407,292,417],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "23,31",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:14 y:54", "id": 15601, "layer": 77, "rect": [175,684,183,692],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "14,54",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:59 y:30", "id": 15602, "layer": 78, "rect": [715,396,723,404],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "59,30",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:46 y:32", "id": 15603, "layer": 79, "rect": [-3176,-1218,-3168,-1210],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "46,32",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:12 y:12", "id": 15604, "layer": 80, "rect": [150,179,160,189],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "12,12",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:45 y:49", "id": 15605, "layer": 81, "rect": [547,624,555,632],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "45,49",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:32 y:59", "id": 15606, "layer": 82, "rect": [391,744,399,752],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "32,59",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:45 y:12", "id": 15607, "layer": 83, "rect": [547,180,555,188],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "45,12",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:37 y:57", "id": 15608, "layer": 84, "rect": [451,720,459,728],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "37,57",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:45 y:45", "id": 15609, "layer": 85, "rect": [547,576,555,584],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "45,45",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:32 y:55", "id": 15610, "layer": 86, "rect": [391,696,399,704],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "32,55",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:43 y:44", "id": 15611, "layer": 87, "rect": [523,564,531,572],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "43,44",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:45 y:38", "id": 15612, "layer": 88, "rect": [547,492,555,500],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "45,38",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:16 y:21", "id": 15613, "layer": 89, "rect": [199,288,207,296],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "16,21",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:59 y:52", "id": 15614, "layer": 90, "rect": [715,660,723,668],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "59,52",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:20 y:48", "id": 15615, "layer": 91, "rect": [247,612,255,620],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "20,48",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:43 y:23", "id": 15616, "layer": 92, "rect": [522,311,532,321],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "43,23",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:11 y:37", "id": 15617, "layer": 93, "rect": [139,480,147,488],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "11,37",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:16 y:12", "id": 15618, "layer": 94, "rect": [199,180,207,188],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "16,12",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:12 y:53", "id": 15619, "layer": 95, "rect": [151,672,159,680],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "12,53",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:54 y:57", "id": 15620, "layer": 96, "rect": [655,720,663,728],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "54,57",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:58 y:32", "id": 15621, "layer": 97, "rect": [703,420,711,428],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "58,32",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:48 y:16", "id": 15622, "layer": 98, "rect": [583,228,591,236],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "48,16",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:31 y:50", "id": 15623, "layer": 99, "rect": [379,636,387,644],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "31,50",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:43 y:33", "id": 15624, "layer": 100, "rect": [522,431,532,441],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "43,33",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:35 y:48", "id": 15625, "layer": 101, "rect": [427,612,435,620],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "35,48",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:40 y:38", "id": 15626, "layer": 102, "rect": [487,492,495,500],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "40,38",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "player1", "id": 15627, "layer": 103, "rect": [280,381,294,395],
+              "props": {"backColor": "SkyBlue", "filled": true, "foreColor": [170,170,255], "lineSize": 3, "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Patrol",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "player1",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 18,
+                "cGoalCommunity": 25,
+                "cGoalPersonnel": 22,
+                "cSendToDestination": "18.083333,28.916667",
+                "originalLoc": "23,29",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:13 y:42", "id": 15628, "layer": 104, "rect": [163,540,171,548],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "13,42",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:18 y:48", "id": 15629, "layer": 105, "rect": [223,612,231,620],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "18,48",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:47 y:21", "id": 15630, "layer": 106, "rect": [571,288,579,296],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "47,21",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:44 y:28", "id": 15631, "layer": 107, "rect": [534,371,544,381],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "44,28",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:47 y:40", "id": 15632, "layer": 108, "rect": [571,516,579,524],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "47,40",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:46 y:41", "id": 15633, "layer": 109, "rect": [559,528,567,536],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "46,41",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:60 y:21", "id": 15634, "layer": 110, "rect": [-3162,-1229,-3154,-1221],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "60,21",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:43 y:53", "id": 15635, "layer": 111, "rect": [523,672,531,680],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "43,53",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:37 y:52", "id": 15636, "layer": 112, "rect": [451,660,459,668],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "37,52",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:42 y:21", "id": 15637, "layer": 113, "rect": [510,287,520,297],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "42,21",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:41 y:45", "id": 15638, "layer": 114, "rect": [499,576,507,584],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "41,45",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:15 y:39", "id": 15639, "layer": 115, "rect": [187,504,195,512],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "15,39",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:41 y:29", "id": 15640, "layer": 116, "rect": [498,383,508,393],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "41,29",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:16 y:13", "id": 15641, "layer": 117, "rect": [198,191,208,201],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "16,13",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:44 y:37", "id": 15642, "layer": 118, "rect": [535,480,543,488],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "44,37",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:55 y:59", "id": 15643, "layer": 119, "rect": [667,744,675,752],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "55,59",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "x:18 y:35", "id": 15644, "layer": 120, "rect": [222,455,232,465],
+              "props": {"backColor": "white", "filled": true, "foreColor": "white", "opaque": true, "style": "oval"},
+              "custom": {
+                "cCurrentAdvantage": 17,
+                "cCurrentBoonLevel": 1,
+                "cCurrentCommunity": 17,
+                "cCurrentDevelopType": "Sentry",
+                "cCurrentEnforcerComplete": 1,
+                "cCurrentLeaderComplete": 1,
+                "cCurrentOwner": "None",
+                "cCurrentPatrolComplete": 1,
+                "cCurrentPersonnel": 17,
+                "cCurrentPopulation": 1000,
+                "cCurrentSentryComplete": 1,
+                "cGoalAdvantage": 17,
+                "cGoalCommunity": 17,
+                "cGoalPersonnel": 17,
+                "originalLoc": "18,35",
+                "$sets": {
+                  "Activity": {
+                    "1": "Sentry"
+                  }
+                }
+              }
+            },
+            {
+              "type": "graphic", "name": "player1_SendToLine", "id": 15700, "layer": 121, "rect": [262,386,289,416],
+              "props": {"blendLevel": 60, "disabled": true, "lineSize": 2, "style": "line"},
+              "points": [[287,388],[264,414]],
+              "custom": {
+                "cSendToDestination": "18.083333,28.916667",
+                "cSendToDistance": "-0.25,2.166667",
+                "originalLoc": "23,29"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group", "name": "DisplayGroup", "id": 9346, "layer": 122, "rect": [-1,556,494,602],
+          "props": {"backColor": "Gray40", "backgroundBehavior": true, "lockLoc": true, "opaque": true, "sharedBehavior": true},
+          "controls": [
+            {
+              "type": "field", "name": "DisplayLabel", "id": 9347, "layer": 123, "rect": [3,568,54,589],
+              "props": {"autoHilite": false, "dontWrap": true, "fixedLineHeight": false, "foreColor": "White", "lockText": true, "opaque": false, "sharedText": true, "showBorder": false, "style": "transparent", "textSize": 10, "textStyle": "bold", "traversalOn": false},
+              "text": "Display:"
+            },
+            {
+              "type": "button", "name": "Send To", "id": 9348, "layer": 124, "rect": [50,567,72,589],
+              "props": {"default": true, "showName": false, "textAlign": "left"}
+            },
+            {
+              "type": "button", "name": "Send To", "id": 9349, "layer": 125, "rect": [72,567,94,589],
+              "props": {"default": true, "showName": false, "textAlign": "left"}
+            },
+            {
+              "type": "button", "name": "Send To", "id": 9350, "layer": 126, "rect": [93,567,115,589],
+              "props": {"default": true, "showName": false, "textAlign": "left"}
+            },
+            {
+              "type": "button", "name": "Send To", "id": 9351, "layer": 127, "rect": [115,567,137,589],
+              "props": {"default": true, "showName": false, "textAlign": "left"}
+            },
+            {
+              "type": "button", "name": "Send To", "id": 9352, "layer": 128, "rect": [150,567,172,589],
+              "props": {"default": true, "showName": false, "textAlign": "left"}
+            },
+            {
+              "type": "button", "name": "Send To", "id": 9353, "layer": 129, "rect": [172,567,194,589],
+              "props": {"default": true, "showName": false, "textAlign": "left"}
+            },
+            {
+              "type": "button", "name": "Send To", "id": 9354, "layer": 130, "rect": [193,567,215,589],
+              "props": {"default": true, "showName": false, "textAlign": "left"}
+            }
+          ]
+        },
+        {
+          "type": "group", "name": "Sectorview", "id": 9355, "layer": 131, "rect": [-1,-7,494,32],
+          "props": {"backColor": "Gray40", "backgroundBehavior": true, "lockLoc": true, "opaque": true, "sharedBehavior": true},
+          "controls": [
+            {
+              "type": "field", "name": "SectorViewLabel", "id": 9356, "layer": 132, "rect": [3,3,85,24],
+              "props": {"autoHilite": false, "dontWrap": true, "fixedLineHeight": false, "foreColor": "White", "lockText": true, "opaque": false, "sharedText": true, "showBorder": false, "style": "transparent", "textAlign": "right", "textSize": 10, "textStyle": "bold", "traversalOn": false},
+              "text": "Sector View:"
+            },
+            {
+              "type": "group", "name": "SectorViewButtonGroup", "id": 9357, "layer": 133, "rect": [76,-1,149,29],
+              "script": {
+                "file": "scripts/MapStack__group_9357_SectorViewButtonGroup.livecodescript", "lines": 4,
+                "handlers": [
+                  {"line": 1, "type": "on", "name": "mouseUp"}
+                ]
+              },
+              "controls": [
+                {
+                  "type": "button", "name": "Send To", "id": 9358, "layer": 134, "rect": [80,3,102,25],
+                  "props": {"default": true, "showName": false, "textAlign": "left"}
+                },
+                {
+                  "type": "button", "name": "Send To", "id": 9359, "layer": 135, "rect": [102,3,124,25],
+                  "props": {"default": true, "showName": false, "textAlign": "left"}
+                },
+                {
+                  "type": "button", "name": "Send To", "id": 9360, "layer": 136, "rect": [123,3,145,25],
+                  "props": {"default": true, "showName": false, "textAlign": "left"}
+                }
+              ]
+            },
+            {
+              "type": "group", "name": "SectorViewButtonGroup", "id": 9367, "layer": 137, "rect": [321,-1,394,29],
+              "script": {
+                "file": "scripts/MapStack__group_9367_SectorViewButtonGroup.livecodescript", "lines": 4,
+                "handlers": [
+                  {"line": 1, "type": "on", "name": "mouseUp"}
+                ]
+              },
+              "controls": [
+                {
+                  "type": "button", "name": "Send To", "id": 9368, "layer": 138, "rect": [325,3,347,25],
+                  "props": {"default": true, "showName": false, "textAlign": "left"}
+                },
+                {
+                  "type": "button", "name": "Send To", "id": 9369, "layer": 139, "rect": [347,3,369,25],
+                  "props": {"default": true, "showName": false, "textAlign": "left"}
+                },
+                {
+                  "type": "button", "name": "Send To", "id": 9370, "layer": 140, "rect": [368,3,390,25],
+                  "props": {"default": true, "showName": false, "textAlign": "left"}
+                }
+              ]
+            },
+            {
+              "type": "field", "name": "TurnLabel", "id": 9372, "layer": 141, "rect": [398,3,473,24],
+              "props": {"autoHilite": false, "dontWrap": true, "fixedLineHeight": false, "foreColor": "White", "lockText": true, "opaque": false, "sharedText": true, "showBorder": false, "style": "transparent", "textSize": 10, "textStyle": "bold", "traversalOn": false},
+              "text": "Turn: 1"
+            },
+            {
+              "type": "button", "name": "Button", "id": 9374, "layer": 142, "rect": [453,3,467,23],
+              "props": {"foreColor": [255,255,255], "label": ">", "margins": 0, "style": "rectangle", "textAlign": "left", "textSize": 20, "textStyle": "bold", "traversalOn": false}
+            },
+            {
+              "type": "field", "name": "RawKey", "id": 10363, "layer": 143, "rect": [180,0,303,29],
+              "props": {"autoHilite": false, "dontWrap": true, "fixedLineHeight": false, "lockText": true, "opaque": false, "sharedText": true, "showBorder": false, "style": "transparent", "traversalOn": false},
+              "text": "Rawkey: 115\nGrid: 12"
+            }
+          ]
+        },
+        {
+          "type": "group", "name": "EqualizerGroup", "id": 10381, "layer": 144, "rect": [679,532,707,560],
+          "props": {"disabled": true},
+          "script": {
+            "file": "scripts/MapStack__group_10381_EqualizerGroup.livecodescript", "lines": 12,
+            "handlers": [
+              {"line": 1, "type": "on", "name": "mouseUp"}
+            ]
+          },
+          "controls": [
+            {
+              "type": "button", "name": "Equalizer", "id": 10382, "layer": 145, "rect": [683,536,703,556],
+              "props": {"default": true, "disabled": true, "foreColor": [51,51,51], "label": "=", "margins": 2, "opaque": false, "style": "transparent", "textFont": "(Default)", "textSize": 24, "toolTip": "Equalize Priorities"}
+            },
+            {
+              "type": "graphic", "name": "sendto3", "id": 10385, "layer": 146, "rect": [699,550,701,553],
+              "props": {"backColor": [0,0,0], "disabled": true, "filled": true, "margins": 8, "opaque": true}
+            }
+          ]
+        },
+        {
+          "type": "field", "name": "Debug.log", "id": 10394, "layer": 147, "rect": [226,557,637,600],
+          "props": {"autoHilite": false, "dontWrap": true, "fixedLineHeight": false, "lockText": true, "opaque": false, "sharedText": true, "showBorder": false, "style": "transparent", "traversalOn": false},
+          "text": "tList"
+        },
+        {
+          "type": "field", "name": "SentToLabel", "id": 12130, "layer": 148, "rect": [624,249,703,270],
+          "props": {"autoHilite": false, "dontWrap": true, "fixedLineHeight": false, "foreColor": "White", "lockText": true, "opaque": false, "sharedText": true, "showBorder": false, "style": "transparent", "textAlign": "right", "textSize": 10, "textStyle": "bold", "traversalOn": false},
+          "text": "197,347"
+        }
+      ]
+    },
+    {
+      "type": "card", "name": "Patrolers", "id": 9361, "number": 2,
+      "props": {"backPattern": 9415},
+      "controls": [
+        {"type": "group", "name": "Sectorview", "id": 9355, "layer": 1, "rect": [-1,-7,494,32], "sharedRef": true, "definedOnCard": 1002},
+        {"type": "group", "name": "RightSideBar", "id": 4543, "layer": 14, "rect": [493,0,721,626], "sharedRef": true, "definedOnCard": 1002},
+        {
+          "type": "graphic", "name": "x:24 y:21_SendToLine", "id": 10392, "layer": 34, "rect": [255,254,263,262],
+          "props": {"colorOverlay": {"blendmode": "normal", "color": "154,205,50", "opacity": 191}, "style": "polygon"},
+          "points": [[259,258]]
+        },
+        {
+          "type": "graphic", "name": "player1_SendToLine", "id": 10393, "layer": 35, "rect": [431,492,439,500],
+          "props": {"colorOverlay": {"blendmode": "normal", "color": "154,205,50", "opacity": 191}, "style": "polygon"}
+        },
+        {
+          "type": "graphic", "name": "player0_SendToLine", "id": 10391, "layer": 36, "rect": [245,274,253,282],
+          "props": {"colorOverlay": {"blendmode": "normal", "color": "154,205,50", "opacity": 191}, "style": "polygon"},
+          "points": [[249,278]]
+        },
+        {"type": "group", "name": "Mapgroup", "id": 6563, "layer": 37, "rect": [1,30,496,556], "sharedRef": true, "definedOnCard": 1002},
+        {"type": "group", "name": "DisplayGroup", "id": 9346, "layer": 103, "rect": [-1,556,494,602], "sharedRef": true, "definedOnCard": 1002},
+        {
+          "type": "field", "name": "ListsLabel", "id": 9364, "layer": 112, "rect": [500,152,583,173],
+          "props": {"autoHilite": false, "dontWrap": true, "fixedLineHeight": false, "foreColor": [255,255,255], "lockLoc": true, "lockText": true, "opaque": false, "sharedText": true, "showBorder": false, "style": "transparent", "textSize": 10, "textStyle": "bold", "traversalOn": false},
+          "text": "Area Activity:"
+        },
+        {
+          "type": "button", "name": "DragSep", "id": 9375, "layer": 113, "rect": [503,311,714,317],
+          "props": {"autoHilite": false, "foreColor": [124,124,124], "hiliteBorder": false, "label": "\" ", "margins": 0, "opaque": false, "showBorder": false, "showFocusBorder": false, "style": "rectangle", "textSize": 12, "textStyle": "bold", "threeD": false, "traversalOn": false},
+          "script": {
+            "file": "scripts/MapStack__button_9375_DragSep.livecodescript", "lines": 30,
+            "handlers": [
+              {"line": 1, "type": "on", "name": "mouseDown"},
+              {"line": 6, "type": "on", "name": "mouseDrag"}
+            ]
+          }
+        },
+        {
+          "type": "group", "name": "ListDataFieldsGroup", "id": 9424, "layer": 114, "rect": [498,169,719,560],
+          "props": {"lockLoc": true},
+          "controls": [
+            {
+              "type": "field", "name": "BottomField", "id": 9362, "layer": 115, "rect": [503,319,714,556],
+              "props": {"dontWrap": true, "hGrid": true, "listBehavior": true, "lockLoc": true, "lockText": true, "scrollbarWidth": 12, "style": "scrolling", "tabStops": [75,100,250], "textSize": 10, "vGrid": true, "vScrollbar": true},
+              "script": {
+                "file": "scripts/MapStack__field_9362_BottomField.livecodescript", "lines": 9,
+                "handlers": [
+                  {"line": 1, "type": "on", "name": "mouseUp"}
+                ]
+              }
+            },
+            {
+              "type": "field", "name": "TopField", "id": 9365, "layer": 116, "rect": [503,173,714,311],
+              "props": {"dontWrap": true, "hGrid": true, "hiliteColor": [128,255,255], "listBehavior": true, "lockLoc": true, "lockText": true, "scrollbarWidth": 12, "style": "scrolling", "tabStops": [75,105,250], "textSize": 10, "vGrid": true, "vScrollbar": true},
+              "text": "Sentry",
+              "custom": {
+                "Activity": 1,
+                "$sets": {
+                  "Activity": {
+                    "2": "Police (patrol)\t25\t1/1/1\nCriminal Gang\t50\t1/2/2\nScout\t100\t2/3/3\nType\tHP\tTalent/Move/Power"
+                  }
+                }
+              },
+              "script": {
+                "file": "scripts/MapStack__field_9365_TopField.livecodescript", "lines": 6,
+                "handlers": [
+                  {"line": 1, "type": "on", "name": "mouseUp"}
+                ]
+              }
+            },
+            {
+              "type": "graphic", "name": "DragLine", "id": 9376, "layer": 117, "rect": [502,313,715,315],
+              "props": {"disabled": true, "filled": true, "foreColor": [124,124,124], "opaque": true, "style": "line"},
+              "points": [[503,314],[714,314]]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
