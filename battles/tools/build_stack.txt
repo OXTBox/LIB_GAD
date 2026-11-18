@@ -1,0 +1,44 @@
+-- Builds LIB_GAD/battles/GAD_Battles.oxtstack: two cards (Map, About) and the loader as its stack
+-- script (gad_battles_stack.livecodescript). The game itself stays in the .livecodescript files.
+-- Run: flock /tmp/oxt_headless.lock python3 -I ~/projects/OXT-BEYOND/tests/oxt_headless.py ~/projects/LIB_GAD/battles/tools/build_stack.txt
+local tDir, tText, tAbout
+put "/home/igame3d/projects/LIB_GAD/battles/" into tDir
+create stack "GAD_Battles"
+set the defaultStack to "GAD_Battles"
+set the title of stack "GAD_Battles" to "Opus | GAD_Battles"
+set the width of stack "GAD_Battles" to 820
+set the height of stack "GAD_Battles" to 646
+set the resizable of stack "GAD_Battles" to false
+set the backgroundColor of stack "GAD_Battles" to "40,42,48"
+set the name of card 1 of stack "GAD_Battles" to "Map"
+create card "About"
+create field "About"
+set the rect of field "About" to "20,20,800,626"
+set the lockText of field "About" to true
+set the traversalOn of field "About" to false
+set the opaque of field "About" to false
+set the showBorder of field "About" to false
+set the textSize of field "About" to 13
+set the textColor of field "About" to "235,235,235"
+put "Wednesday, November 18, 2026" & return & \
+      "Stack name: GAD_Battles     Title: Opus | GAD_Battles" & return & return & \
+      "What it is: GAD battles, step 2, the smallest loop. Bases build one unit at a time and send it to their send-to point; units of one team at one place at the start of a turn become a squad; a squad moves at its slowest member's speed; arriving at an enemy, the fight resolves itself." & return & return & \
+      "How to play:" & return & \
+      "- Click your Base (Cyan), then click where its units go: a Base, an X, a unit, or any spot." & return & \
+      "- Click a unit or squad (small squares), then click where it goes. Click it again: it waits there." & return & \
+      "- U, then click the map: drops a rendezvous X. Send your Base's units there to gather a squad." & return & \
+      "- ENTER (or Return): ends the turn. Bases build, units move one turn closer, detection ticks, the computer moves." & return & \
+      "- Grey Base: not detected yet. Green: the computer's. Sparks and a word (TAKEN / HELD / WON / LOST) mark a fight." & return & \
+      "- Right-click or Esc: cancel. N: a new game. A: this card. Any key or click here: back to the map." & return & return & \
+      "Report: was it fun? Tell Claude, or leave a game note. Nothing is watching this window." & return & \
+      "Scripts: gad_battles_rules.livecodescript (the rules), gad_battles_ui.livecodescript (this map), next to this stack." into field "About"
+go card "Map"
+put textDecode(url ("binfile:" & tDir & "gad_battles_stack.livecodescript"), "UTF-8") into tText
+delete line 1 of tText
+set the script of stack "GAD_Battles" to tText
+put ck("stack script compiles", the result, empty) & return after tLog
+save stack "GAD_Battles" as (tDir & "GAD_Battles.oxtstack")
+put ck("saved", the result, empty) & return after tLog
+put ck("file there", there is a file (tDir & "GAD_Battles.oxtstack"), true) & return after tLog
+delete stack "GAD_Battles"
+return tLog

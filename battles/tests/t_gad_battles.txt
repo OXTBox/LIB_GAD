@@ -1,0 +1,341 @@
+-- GAD battles step 2, the smallest loop (LIB_GAD/battles): seeded, deterministic, headless.
+-- Run: flock /tmp/oxt_headless.lock python3 -I ~/projects/OXT-BEYOND/tests/oxt_headless.py ~/projects/LIB_GAD/battles/tests/t_gad_battles.txt
+-- Writes only in its own folder (LIB_GAD/battles/tests/_work); never touches LIB_LLMIN.
+local tDir, tW, tB1, tB2, tA, tR, tE, tS, tM, tN, tI, tOK, tFight, tSum1, tSum2, tWords, tSeed
+local tU1, tU2, tU3, tXY, tCard, tTurn, tStack, tText, tF
+put "/home/igame3d/projects/LIB_GAD/battles/" into tDir
+put tDir & "tests/_work" into tW
+if there is not a folder tW then create folder tW
+start using stack (tDir & "gad_battles_rules.livecodescript")
+put ck("library loads", the result, empty) & return after tLog
+
+-- 1. the records
+GADB.New 42
+GADB.SetSetting "aiAttack", 0
+put GADB.AddBase(1, 150, 450, 1, 50, "agent,militia") into tB1
+put GADB.AddBase(2, 650, 140, 1, 34, "thrall") into tB2
+put GADB.AddAnomaly(tB2, 3, 0, "thrall") into tA
+put ck("ids b_001 b_002 a_001", tB1 && tB2 && tA, "b_001 b_002 a_001") & return after tLog
+put ck("Base record has the plan's 14 items", the number of items of GADB.Record(tB1), 14) & return after tLog
+put ck("anomaly Base grey (detect 0) at the start", GADB.Get(tB2, "detect"), 0) & return after tLog
+put ck("anomaly knows its Base", GADB.Get(tA, "base") & "/" & GADB.Get(tB2, "anomaly"), "b_002/a_001") & return after tLog
+GADB.SetSetting "travel", "fastest"
+put ck("travel=slowest is the only mode", GADB.Setting("travel"), "slowest") & return after tLog
+
+-- 2. a Base builds one unit at a time, toward its send-to (the rendezvous X)
+put GADB.AddRendezvous(1, 300, 400) into tR
+put ck("rendezvous r_001", tR, "r_001") & return after tLog
+GADB.SetSendTo tB1, tR
+get GADB.EndTurn()
+put ck("turn 1: assembly 50, no unit yet", the number of lines of GADB.Ids("m"), 0) & return after tLog
+get GADB.EndTurn()
+put ck("turn 2: your Base (production 50) built one unit", the number of lines of GADB.Ids("m"), 1) & return after tLog
+put ck("yours heads for the X", GADB.Get("m_001", "sendto"), tR) & return after tLog
+get GADB.EndTurn()
+put ck("turn 3: the anomaly's Base (production 34) built its first", GADB.Get("m_002", "owner"), 2) & return after tLog
+put ck("theirs stays home (send-to = its Base)", GADB.Get("m_002", "sendto"), tB2) & return after tLog
+
+-- 3. yours gather at the X into one squad (same team, same place, at the start of a turn)
+put empty into tS
+repeat 20
+   get GADB.EndTurn()
+   repeat for each line tM in GADB.Ids("s")
+      if GADB.Get(tM, "owner") is 1 and GADB.XY(tM) is GADB.XY(tR) and GADB.Personnel(tM) >= 3 then put tM into tS
+   end repeat
+   if tS is not empty then exit repeat
+end repeat
+put "INFO after turn " & GADB.Turn() - 1 & ":" & return & GADB.State() & return after tLog
+put ck("a squad of 3+ formed at the X", tS is not empty, true) & return after tLog
+put ck("only one squad of yours at the X", countSquadsAt(1, GADB.XY(tR)), 1) & return after tLog
+put ck("the squad has an agent and a militia", (GADB.Members(tS) contains "m_001") and (GADB.Members(tS) contains "m_003"), true) & return after tLog
+put ck("squad moves at its slowest member's speed (militia 60)", GADB.Speed(tS), 60) & return after tLog
+put ck("the computer's units became its garrison squad", the number of lines of GADB.Garrison(tB2), 1) & return after tLog
+
+-- 4. send the squad to the anomaly's Base; the fight resolves itself on arrival
+GADB.SetSendTo tB1, tB1
+GADB.SetSendTo tS, tB2
+put ck("8 turns to go (436 map units at 60)", GADB.Get(tS, "turnsLeft"), 8) & return after tLog
+put empty into tFight
+repeat 12
+   put GADB.EndTurn() into tE
+   if tE contains ("fight" & tab) then
+      put line lineOffset("fight" & tab, tE) of tE into tFight
+      exit repeat
+   end if
+end repeat
+put "INFO fight: " & tFight & return after tLog
+set the itemDelimiter to tab
+put item 4 of tFight into tOK
+set the itemDelimiter to comma
+put ck("the fight happened on arrival", tFight is not empty, true) & return after tLog
+put ck("result word TAKEN or HELD", tOK is among the items of "TAKEN,HELD", true) & return after tLog
+put ck("anomaly Base was detected before the fight", GADB.Get(tB2, "detect") >= 1, true) & return after tLog
+if tOK is "TAKEN" then
+   put ck("TAKEN: the Base is yours now", GADB.Get(tB2, "owner"), 1) & return after tLog
+   put ck("TAKEN: your squad guards it", GADB.Garrison(tB2) is not empty, true) & return after tLog
+else
+   put ck("HELD: the Base is still the computer's", GADB.Get(tB2, "owner"), 2) & return after tLog
+   put ck("HELD: your squad is broken", GADB.Exists(tS), false) & return after tLog
+end if
+
+-- 5. deterministic: the same seed plays the same game; INFO how the seeds fall
+put playLoop(42, 0) into tSum1
+put playLoop(42, 0) into tSum2
+put ck("same seed, same game", tSum1, tSum2) & return after tLog
+put ck("the loop alone gives the same fight", item 2 of tSum1, tOK) & return after tLog
+repeat for each item tI in "0,4"
+   put empty into tWords
+   repeat with tSeed = 1 to 20
+      put item 2 of playLoop(tSeed, tI) & space after tWords
+   end repeat
+   put "INFO seeds 1..20, aiAttack " & tI & ": " & tWords & return after tLog
+end repeat
+
+-- 6. the fight handler by itself
+GADB.New 5
+put GADB.AddBase(2, 400, 300, 1, 0, "thrall") into tB2
+repeat 4
+   put GADB.AddUnit(1, "superhero", 380, 300, 1) into tM
+end repeat
+GADB.FormSquads
+put line 1 of GADB.Ids("s") into tS
+put ck("four at one place = one squad of 4", GADB.Personnel(tS), 4) & return after tLog
+put ck("four superheroes take an empty level-1 Base", GADB.Fight(tS, tB2), "TAKEN") & return after tLog
+put ck("the Base changed owner", GADB.Get(tB2, "owner"), 1) & return after tLog
+put ck("taken Base fully known", GADB.Get(tB2, "detect"), 4) & return after tLog
+GADB.New 5
+put GADB.AddBase(2, 400, 300, 3, 0, "thrall") into tB2
+repeat 3
+   put GADB.AddUnit(2, "thrall", 400, 300, 3) into tM
+   GADB.SetSendTo tM, tB2
+   get GADB.EndTurn()
+end repeat
+put GADB.AddUnit(1, "militia", 380, 300, 1) into tU1
+put ck("one militia against a level-3 Base with 3 inside: HELD", GADB.Fight(tU1, tB2), "HELD") & return after tLog
+put ck("the militia is broken", GADB.Exists(tU1), false) & return after tLog
+put ck("the Base holds", GADB.Get(tB2, "owner"), 2) & return after tLog
+
+-- the die tips an even fight: 3 agents against 3 agents, seeds 1..20
+put 0 into tN
+repeat with tSeed = 1 to 20
+   GADB.New tSeed
+   repeat 3
+      get GADB.AddUnit(1, "agent", 200, 200, 1)
+      get GADB.AddUnit(2, "agent", 260, 200, 1)
+   end repeat
+   GADB.FormSquads
+   if GADB.Fight(line 1 of GADB.Ids("s"), line 2 of GADB.Ids("s")) is "WON" then add 1 to tN
+end repeat
+put "INFO even fights won by the attacker: " & tN & " of 20" & return after tLog
+put ck("the seeded die decides even fights both ways", tN > 0 and tN < 20, true) & return after tLog
+-- first strike: the same squads, the attacker faster (vigilantes 80 against militia 60, equal power x personnel)
+put 0 into tN
+repeat with tSeed = 1 to 20
+   GADB.New tSeed
+   GADB.SetKind "vigilante", 10, 80
+   GADB.SetKind "militia", 10, 60
+   repeat 3
+      get GADB.AddUnit(1, "vigilante", 200, 200, 1)
+      get GADB.AddUnit(2, "militia", 260, 200, 1)
+   end repeat
+   GADB.FormSquads
+   if GADB.Fight(line 1 of GADB.Ids("s"), line 2 of GADB.Ids("s")) is "WON" then add 1 to tN
+end repeat
+put "INFO faster attacker won: " & tN & " of 20" & return after tLog
+put ck("first strike: the faster side wins most even fights", tN >= 15, true) & return after tLog
+
+-- 7. send-to: any point, an ally, an enemy entity
+GADB.New 9
+GADB.SetSetting "aiAttack", 0
+put GADB.AddUnit(1, "agent", 100, 100, 1) into tU1
+GADB.SetSendTo tU1, "500,100"
+repeat 5
+   get GADB.EndTurn()
+end repeat
+put ck("sent to a clicked point: there", GADB.XY(tU1), "500,100") & return after tLog
+put ck("and waits", GADB.Get(tU1, "state"), "wait") & return after tLog
+put GADB.AddUnit(1, "militia", 100, 300, 1) into tU2
+GADB.SetSendTo tU2, tU1
+repeat 10
+   get GADB.EndTurn()
+end repeat
+put ck("sent to an ally: they become one squad", GADB.Mover(tU1) is GADB.Mover(tU2) and char 1 of GADB.Mover(tU1) is "s", true) & return after tLog
+put GADB.AddUnit(2, "thrall", 300, 500, 1) into tU3
+GADB.SetSendTo GADB.Mover(tU1), tU3
+put empty into tFight
+repeat 8
+   put GADB.EndTurn() into tE
+   if tE contains ("fight" & tab) then
+      put line lineOffset("fight" & tab, tE) of tE into tFight
+      exit repeat
+   end if
+end repeat
+set the itemDelimiter to tab
+put item 4 of tFight into tOK
+set the itemDelimiter to comma
+put ck("sent against an enemy unit: WON or LOST", tOK is among the items of "WON,LOST", true) & return after tLog
+put ck("the loser is gone", (tOK is "WON" and not GADB.Exists(tU3)) or (tOK is "LOST" and not GADB.Exists(tU1)), true) & return after tLog
+
+-- 8. the computer moves: its garrison, grown to aiAttack, goes for your Base
+GADB.New 3
+GADB.SetSetting "aiAttack", 2
+put GADB.AddBase(1, 100, 400, 1, 0, "agent") into tB1
+put GADB.AddBase(2, 700, 100, 1, 100, "thrall") into tB2
+put empty into tOK
+repeat 4
+   put GADB.EndTurn() into tE
+   if tE contains ("computer" & tab) then put "sent" into tOK
+end repeat
+put ck("the computer sends its garrison", tOK, "sent") & return after tLog
+put false into tOK
+repeat for each line tM in GADB.Movers()
+   if GADB.Get(tM, "owner") is 2 and GADB.Get(tM, "sendto") is tB1 then put true into tOK
+end repeat
+put ck("toward your Base", tOK, true) & return after tLog
+
+-- 9. the card: clicks and keys as the owner plays them
+create stack "gadui"
+set the defaultStack to "gadui"
+set the width of stack "gadui" to 820
+set the height of stack "gadui" to 640
+set the name of card 1 of stack "gadui" to "Map"
+put textDecode(url ("binfile:" & tDir & "gad_battles_ui.livecodescript"), "UTF-8") into tText
+delete line 1 of tText
+set the script of card "Map" of stack "gadui" to tText
+put ck("card script compiles", the result, empty) & return after tLog
+put the long id of card "Map" of stack "gadui" into tCard
+dispatch "GADUI.Start" to tCard with 42
+put ck("Bases drawn", there is a graphic "D:B:b_001" and there is a graphic "D:B:b_002", true) & return after tLog
+put ck("yours Cyan", the backgroundColor of graphic "D:B:b_001", "0,200,220") & return after tLog
+put ck("theirs grey until detected", the backgroundColor of graphic "D:B:b_002", "128,128,128") & return after tLog
+put ck("their text grey", the textColor of field "D:T:b_002", "140,140,140") & return after tLog
+put ck("status bar says what to do", field "Status" contains "ENTER ends the turn", true) & return after tLog
+dispatch "keyDown" to tCard with "u"
+dispatch "GADUI.Click" to tCard with 300, 400
+put ck("U + click drops an X", there is a graphic "D:R:r_001", true) & return after tLog
+dispatch "GADUI.Click" to tCard with 150, 450
+put ck("click your Base: selected", value("GADUI.Selected()", tCard), "b_001") & return after tLog
+put ck("selection frame", there is a graphic "D:sel", true) & return after tLog
+dispatch "GADUI.Click" to tCard with 420, 300
+put ck("click an empty spot: send-to that point", GADB.Get("b_001", "sendto"), "420,300") & return after tLog
+dispatch "GADUI.Click" to tCard with 150, 450
+dispatch "GADUI.Click" to tCard with 302, 398
+put ck("click the X: send-to the X", GADB.Get("b_001", "sendto"), "r_001") & return after tLog
+dispatch "returnKey" to tCard
+put ck("ENTER ends the turn", GADB.Turn(), 2) & return after tLog
+-- ENTER until a squad of 3 waits at the X, then click it and click the anomaly's Base
+put empty into tS
+repeat 20
+   dispatch "returnKey" to tCard
+   repeat for each line tM in GADB.Ids("s")
+      if GADB.Get(tM, "owner") is 1 and GADB.XY(tM) is "300,400" and GADB.Personnel(tM) >= 3 then put tM into tS
+   end repeat
+   if tS is not empty then exit repeat
+end repeat
+put ck("card: squad gathered at the X", tS is not empty, true) & return after tLog
+put value("GADUI.PosOf(" & quote & tS & quote & ")", tCard) into tXY
+put ck("squad drawn", there is a graphic ("D:M:" & tS), true) & return after tLog
+dispatch "GADUI.Click" to tCard with item 1 of tXY, item 2 of tXY
+put ck("click the squad: selected", value("GADUI.Selected()", tCard), tS) & return after tLog
+dispatch "GADUI.Click" to tCard with 650, 140
+put ck("click the anomaly's Base: send-to it", GADB.Get(tS, "sendto"), "b_002") & return after tLog
+put ck("a line shows where it goes", there is a graphic ("D:L:" & tS), true) & return after tLog
+-- owner's bug (18 Nov): a Base sent onto your own unit/squad keeps that spot, never follows it
+put GADB.XY(tS) into tXY
+dispatch "GADUI.Click" to tCard with 150, 450
+put value("GADUI.PosOf(" & quote & tS & quote & ")", tCard) into tM
+dispatch "GADUI.Click" to tCard with item 1 of tM, item 2 of tM
+put ck("Base clicked onto your squad standing on the X: send-to the X, not the squad", GADB.Get("b_001", "sendto"), "r_001") & return after tLog
+dispatch "GADUI.Click" to tCard with 150, 450
+dispatch "GADUI.Click" to tCard with 302, 398
+put ck("Base back to the X", GADB.Get("b_001", "sendto"), "r_001") & return after tLog
+put empty into tFight
+repeat 12
+   dispatch "returnKey" to tCard
+   if there is a field "D:W:1" then
+      put field "D:W:1" into tFight
+      exit repeat
+   end if
+end repeat
+put ck("card: sparks on arrival", there is a graphic "D:S:1:0" and there is a graphic "D:S:1:7", true) & return after tLog
+put ck("card: the result word", tFight is among the items of "TAKEN,HELD", true) & return after tLog
+put "INFO card result " & tFight & " at turn " & GADB.Turn() - 1 & "; status: " & line 2 of field "Status" & return after tLog
+dispatch "returnKey" to tCard
+put ck("sparks gone next turn", there is a graphic "D:S:1:0", false) & return after tLog
+dispatch "keyDown" to tCard with "n"
+put ck("N: a new game", GADB.Turn(), 1) & return after tLog
+delete stack "gadui"
+
+-- 10. the stack loader (gad_battles_stack.livecodescript) in the work folder
+repeat for each item tF in "gad_battles_rules,gad_battles_ui"
+   put url ("binfile:" & tDir & tF & ".livecodescript") into url ("binfile:" & tW & "/" & tF & ".livecodescript")
+end repeat
+create stack "GADLoad"
+set the defaultStack to "GADLoad"
+set the name of card 1 of stack "GADLoad" to "Map"
+create card "About"
+put textDecode(url ("binfile:" & tDir & "gad_battles_stack.livecodescript"), "UTF-8") into tText
+delete line 1 of tText
+set the script of stack "GADLoad" to tText
+put ck("stack script compiles", the result, empty) & return after tLog
+save stack "GADLoad" as (tW & "/GADLoad.oxtstack")
+dispatch "GADStack.Load" to stack "GADLoad"
+put ck("loader: no complaint", the result, empty) & return after tLog
+put ck("loader: title", the title of stack "GADLoad", "Opus | GAD_Battles") & return after tLog
+put ck("loader: card script loaded", the script of card "Map" of stack "GADLoad" contains "GADUI.Draw", true) & return after tLog
+put ck("loader: map drawn", there is a graphic "D:B:b_001" of card "Map" of stack "GADLoad", true) & return after tLog
+
+-- 11. the built stack itself (tools/build_stack.txt), loaded in memory only, never saved here
+put tDir & "GAD_Battles.oxtstack" into tStack
+put ck("built stack: title", the title of stack tStack, "Opus | GAD_Battles") & return after tLog
+put ck("built stack: Map and About cards", the cardNames of stack tStack, "Map" & return & "About") & return after tLog
+dispatch "GADStack.Load" to stack tStack
+put ck("built stack: loads the scripts next to it", there is a graphic "D:B:b_002" of card "Map" of stack tStack, true) & return after tLog
+delete stack "GAD_Battles"
+-- last: closing lets go of the stack and its library (the library goes at idle, so nothing after this)
+dispatch "closeStackRequest" to stack "GADLoad"
+put ck("closeStackRequest sets destroyStack (headless: never opened, so not closed)", the destroyStack of stack "GADLoad", true) & return after tLog
+if there is a stack "GADLoad" then delete stack "GADLoad"
+return tLog
+--HANDLERS--
+function countSquadsAt pOwner, pXY
+   local tN, tM
+   put 0 into tN
+   repeat for each line tM in GADB.Movers()
+      if GADB.Get(tM, "owner") is pOwner and GADB.XY(tM) is pXY then add 1 to tN
+   end repeat
+   return tN
+end countSquadsAt
+
+-- the whole loop from a seed (pAI: the computer's aiAttack): "turn of the fight,word,owner of b_002 after"
+function playLoop pSeed, pAI
+   local tB1, tB2, tR, tS, tM, tE, tI
+   GADB.New pSeed
+   GADB.SetSetting "aiAttack", pAI
+   put GADB.AddBase(1, 150, 450, 1, 50, "agent,militia") into tB1
+   put GADB.AddBase(2, 650, 140, 1, 34, "thrall") into tB2
+   get GADB.AddAnomaly(tB2, 3, 0, "thrall")
+   put GADB.AddRendezvous(1, 300, 400) into tR
+   GADB.SetSendTo tB1, tR
+   repeat 22
+      get GADB.EndTurn()
+      put empty into tS
+      repeat for each line tM in GADB.Ids("s")
+         if GADB.Get(tM, "owner") is 1 and GADB.XY(tM) is GADB.XY(tR) and GADB.Personnel(tM) >= 3 then put tM into tS
+      end repeat
+      if tS is not empty then exit repeat
+   end repeat
+   if tS is empty then return "no squad"
+   GADB.SetSendTo tB1, tB1
+   GADB.SetSendTo tS, tB2
+   repeat 12
+      put GADB.EndTurn() into tE
+      if tE contains ("fight" & tab) then
+         set the itemDelimiter to tab
+         put item 4 of line lineOffset("fight" & tab, tE) of tE into tE
+         set the itemDelimiter to comma
+         return GADB.Turn() - 1 & "," & tE & "," & GADB.Get(tB2, "owner")
+      end if
+   end repeat
+   return "no fight"
+end playLoop
