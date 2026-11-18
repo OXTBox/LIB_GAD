@@ -35,8 +35,8 @@ them out. Higher level, stronger minions.
 |---|---|---|
 | star production, paidTowardResearch | a Base's **production** and **spending** | what it builds and how fast |
 | ship power, speed, damage | a unit's **power**, **speed**, **damage** | the fight; turns to arrive |
-| (none: your word) | **personnel** | the fight; holding a Base after |
-| fleet totalPower, remainingDistance | a group's total power, **turns left** | the fight; when it arrives |
+| the number of ships in a fleet | **personnel**: how many are in the squad (agents, superheroes, vigilantes, militia, police...) | the fight; holding a Base after |
+| fleet totalPower, remainingDistance | a squad's total power (the sum of its members), **turns left** | the fight; when it arrives |
 | visibility tiers NONE < SPEED < TECH < CLASS < DETAILS | **detection** 0..4 | what you know before you send |
 
 The fight, first version: each side's power x personnel, nudged by speed (first strike) and a seeded
@@ -48,13 +48,14 @@ numbers drive the optional 3D view, so watching never changes the result.
 | Thing | Record | Fields (kept from GAD_WORKING; **new** in bold) |
 |---|---|---|
 | Base | `b_001`.. BaseData | ID, type, x, y, population, production, prudence, level, life, sendto, **owner**, **anomaly**, **detect**, **spending** |
-| Unit | `m_001`.. mobiles | ID, x, y, sendto, level, **owner**, **power**, **speed**, **damage**, **personnel**, **turnsLeft** |
+| Unit | `m_001`.. mobiles | one member: ID, **kind** (agent, superhero, vigilante, militia, police...), level, **owner**, **power**, **speed**, **damage** |
+| Squad | **`s_001`..** (Galactica's fleet; the essence doc's Squad) | ID, x, y, sendto, **owner**, **members** (unit ids: their count is the personnel), **turnsLeft**; moves at its slowest member's speed (my default) |
 | Anomaly | **`a_001`..** AnomalyData | **signature**, **suppression**, **base**, **minion kind** |
 | Faction | PlayerData | 1 = Cyan (you), 2.. = computer colours; online opponents later |
 
 ## Step 2: the smallest loop (after your yes)
 
-Two Bases (yours and one anomaly's), one unit each way, the trip takes a few turns, the fight resolves
+Two Bases (yours and one anomaly's), one small squad each way, the trip takes a few turns, the fight resolves
 on arrival, sparks and a result word on the map. A plain stack of rects. Played headless in a test and
 openable by you in OXT-Beyond. **Not in step 2:** the 3D zoom view (step 3: LIB_RTS or DeadDays
 entities acting on the figures), music, more colours, names (LIB_LISTS by name, later).
