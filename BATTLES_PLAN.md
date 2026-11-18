@@ -43,13 +43,19 @@ The fight, first version: each side's power x personnel, nudged by speed (first 
 die; the loser's damage grows until it breaks. One formula, in one handler, easy to tune. The same
 numbers drive the optional 3D view, so watching never changes the result.
 
+**Note: travel speed is one to test** (owner, 18 Nov): "we might have teleporters or super jets ...
+we'll default to the slow mode and then test the speed advantage, it'll be terrifying when the enemy
+teleports right into your base." So: a squad moves at its slowest member's speed by default; one
+setting (`travel=slowest`) lets later tests try others (the fastest member carries the squad, a
+teleporter = 0 turns, a jet = a speed bonus). Not in step 2.
+
 ## The data, as GAD's own records (essence doc 5.1)
 
 | Thing | Record | Fields (kept from GAD_WORKING; **new** in bold) |
 |---|---|---|
 | Base | `b_001`.. BaseData | ID, type, x, y, population, production, prudence, level, life, sendto, **owner**, **anomaly**, **detect**, **spending** |
 | Unit | `m_001`.. mobiles | one member: ID, **kind** (agent, superhero, vigilante, militia, police...), level, **owner**, **power**, **speed**, **damage** |
-| Squad | **`s_001`..** (Galactica's fleet; the essence doc's Squad) | ID, x, y, sendto, **owner**, **members** (unit ids: their count is the personnel), **turnsLeft**; moves at its slowest member's speed (my default) |
+| Squad | **`s_001`..** (Galactica's fleet; the essence doc's Squad) | ID, x, y, sendto, **owner**, **members** (unit ids: their count is the personnel), **turnsLeft**; moves at its slowest member's speed (default, see the note on travel speed) |
 | Anomaly | **`a_001`..** AnomalyData | **signature**, **suppression**, **base**, **minion kind** |
 | Faction | PlayerData | 1 = Cyan (you), 2.. = computer colours; online opponents later |
 
