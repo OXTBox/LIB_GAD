@@ -112,7 +112,7 @@ command GADUI.Cancel
 end GADUI.Cancel
 
 command GADUI.Click pX, pY
-   local tHit, tTarget, tWhat
+   local tHit, tTarget, tWhat, tK
    if not (pX & "," & pY is within kMapRect) then exit GADUI.Click
    if sDropX then
       put false into sDropX
@@ -140,6 +140,14 @@ command GADUI.Click pX, pY
       put sSel into tTarget
    else if tHit is empty then
       put round(pX) & "," & round(pY) into tTarget
+   else if char 1 of sSel is "b" and char 1 of tHit is among the items of "m,s" and GADB.OwnerOf(tHit) is 1 then
+      -- a Base sent onto one of your own units means that spot, never "follow that unit"
+      -- (owner's bug, 18 Nov: the Base's units followed the squad to the enemy)
+      -- (a unit waiting on an X means the X)
+      put GADB.XY(tHit) into tTarget
+      repeat for each line tK in GADB.Ids("r")
+         if GADB.Dist(tTarget, GADB.XY(tK)) <= 8 then put tK into tTarget
+      end repeat
    else
       put tHit into tTarget
    end if

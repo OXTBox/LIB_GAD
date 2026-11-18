@@ -240,6 +240,15 @@ put ck("click the squad: selected", value("GADUI.Selected()", tCard), tS) & retu
 dispatch "GADUI.Click" to tCard with 650, 140
 put ck("click the anomaly's Base: send-to it", GADB.Get(tS, "sendto"), "b_002") & return after tLog
 put ck("a line shows where it goes", there is a graphic ("D:L:" & tS), true) & return after tLog
+-- owner's bug (18 Nov): a Base sent onto your own unit/squad keeps that spot, never follows it
+put GADB.XY(tS) into tXY
+dispatch "GADUI.Click" to tCard with 150, 450
+put value("GADUI.PosOf(" & quote & tS & quote & ")", tCard) into tM
+dispatch "GADUI.Click" to tCard with item 1 of tM, item 2 of tM
+put ck("Base clicked onto your squad standing on the X: send-to the X, not the squad", GADB.Get("b_001", "sendto"), "r_001") & return after tLog
+dispatch "GADUI.Click" to tCard with 150, 450
+dispatch "GADUI.Click" to tCard with 302, 398
+put ck("Base back to the X", GADB.Get("b_001", "sendto"), "r_001") & return after tLog
 put empty into tFight
 repeat 12
    dispatch "returnKey" to tCard
