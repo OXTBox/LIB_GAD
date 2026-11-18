@@ -24,7 +24,6 @@
 ##           Hold every town to win. The Strangeness escalates; something else may too.
 ######################################################################################
 
-global gObjectTransforms, gSceneObjects
 global bPaused, bPlaying
 
 local sWords, sTheme, sGenRoot
@@ -133,7 +132,7 @@ end GA.Fill
 -------------------------------------------------------------------- the world
 
 on Game.OnStart
-   Engine.ResetCamera
+   Camera.Reset
    Scene.ClearAll
    Particles.Clear
    HUD.Clear
@@ -173,8 +172,8 @@ on GA.Meshes
    Mesh.AddLine tM, 12, 14
    Mesh.AddLine tM, 13, 14
    Mesh.Define "GA.Hero", tM
-   Mesh.Define "GA.Town", MeshSphere(7, 2, 4)
-   Mesh.Define "GA.Ring", MeshPrism(10, 18, 2)
+   Mesh.Define "GA.Town", Mesh.Sphere(7, 2, 4)
+   Mesh.Define "GA.Ring", Mesh.Prism(10, 18, 2)
 end GA.Meshes
 
 -- a stick figure standing on y=0 (y down): head diamond, body, arms (pArms: -2 hips .. 1 up), legs
@@ -488,7 +487,7 @@ on GA.ApplyView
    put sPanX & "," & sPanY & "," & sZoom into tNow
    if tNow is sCamWas then exit GA.ApplyView
    put tNow into sCamWas
-   Engine.SetCam -sPanX, -sPanY, kZ / sZoom - kZ
+   Camera.SetPosition sPanX, sPanY, kZ - kZ / sZoom
    repeat with k = 1 to sTownCount
       GA.LabelTown k
    end repeat
@@ -649,7 +648,7 @@ on GA.MoveCircles
       add dx / d * kCircleSpeed to sCircle[c]["x"]
       add dy / d * kCircleSpeed to sCircle[c]["y"]
       -- a small hop as they walk
-      SetObjectPosition sCircle[c]["key"], sCircle[c]["x"], sCircle[c]["y"] - abs(4 * sin(sTicks / 3)), kZ - 4
+      Entity.SetPosition sCircle[c]["key"], sCircle[c]["x"], sCircle[c]["y"] - abs(4 * sin(sTicks / 3)), kZ - 4
    end repeat
 end GA.MoveCircles
 
@@ -762,7 +761,7 @@ on GA.Select k
    put k into sSel
    if k is not empty then
       put Entity.Spawn("GA.Ring", sTown[k]["x"], sTown[k]["y"], kZ, "#FFE060") into sTown[k]["ring"]
-      SetObjectRotation sTown[k]["ring"], 1.5708, 0, 0
+      Entity.SetRotation sTown[k]["ring"], 1.5708, 0, 0
       GA.Say GA.W("game_hud_labels", 5, "SELECTED") && toUpper(sTown[k]["name"]) & ":" && sTown[k]["people"] && toUpper(GA.Rank(1, sTown[k]["rank"]))
    end if
 end GA.Select
@@ -901,7 +900,7 @@ function GA.State
 end GA.State
 
 on Game.OnStop
-   Engine.SetCam 0, 0, 0
+   Camera.SetPosition 0, 0, 0
    HUD.Clear
    if there is a field "GASheet" then set the visible of field "GASheet" to false
 end Game.OnStop
