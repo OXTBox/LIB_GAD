@@ -56,15 +56,27 @@ teleporter = 0 turns, a jet = a speed bonus). Not in step 2.
 | Base | `b_001`.. BaseData | ID, type, x, y, population, production, prudence, level, life, sendto, **owner**, **anomaly**, **detect**, **spending** |
 | Unit | `m_001`.. mobiles | one member: ID, **kind** (agent, superhero, vigilante, militia, police...), level, **owner**, **power**, **speed**, **damage** |
 | Squad | **`s_001`..** (Galactica's fleet; the essence doc's Squad) | ID, x, y, sendto, **owner**, **members** (unit ids: their count is the personnel), **turnsLeft**; moves at its slowest member's speed (default, see the note on travel speed) |
+| Rendezvous | **`r_001`..** (Galactica's rendezvous; the essence doc's staging point) | ID, owner, x, y: an **X on the map** |
 | Anomaly | **`a_001`..** AnomalyData | **signature**, **suppression**, **base**, **minion kind** |
 | Faction | PlayerData | 1 = Cyan (you), 2.. = computer colours; online opponents later |
 
-## Step 2: the smallest loop (after your yes)
+## Step 2: the smallest loop (your rules, 18 Nov)
 
-Two Bases (yours and one anomaly's), one small squad each way, the trip takes a few turns, the fight resolves
-on arrival, sparks and a result word on the map. A plain stack of rects. Played headless in a test and
-openable by you in OXT-Beyond. **Not in step 2:** the 3D zoom view (step 3: LIB_RTS or DeadDays
-entities acting on the figures), music, more colours, names (LIB_LISTS by name, later).
+"One unit by default, squads are formed at rendezvous point."
+
+| Rule | How |
+|---|---|
+| A Base builds **one unit** at a time | each unit leaves on its own |
+| **Rendezvous** | press **U**, click the map: an **X** is left there. It can be clicked as a target |
+| **Send to...** | a unit's order, or a Base's "send to..." point: a Base, a rendezvous X, an enemy entity or an ally entity. **Every unit a Base produces goes to its send-to point** |
+| **Squads form by themselves** | entities of the same team in the same place **at the start of a turn** become a squad by default; a rendezvous is where you gather them on purpose |
+| Travel | the slow mode: a squad moves at its slowest member's speed |
+| Arrival at an enemy | the fight resolves itself from the figures; sparks and a result word on the map |
+
+The loop to build: two Bases (yours and one anomaly's), each producing units toward a send-to point;
+yours gathers at a rendezvous X into a squad, which you then send to the anomaly's Base. Played headless
+in a test and openable by you in OXT-Beyond. **Not in step 2:** the 3D zoom view, music, more colours,
+names (LIB_LISTS by name, later), travel-speed tests.
 
 ## What changed from version 1
 
