@@ -68,7 +68,7 @@ teleporter = 0 turns, a jet = a speed bonus). Not in step 2.
 |---|---|
 | A Base builds **one unit** at a time | each unit leaves on its own |
 | **Rendezvous** | press **U**, click the map: an **X** is left there. It can be clicked as a target |
-| **Send to...** | a unit's order, or a Base's "send to..." point: a Base, a rendezvous X, an enemy entity, an ally entity, **or any point on the map** (empty space: the unit goes there and waits). **Every unit a Base produces goes to its send-to point** |
+| **Send to...** | a unit's order, or a Base's "send to..." point: a Base, a rendezvous X, an enemy entity, an ally entity, **or any point on the map you choose** (an arbitrary spot in empty space, picked by a click: the unit goes there and waits). **Every unit a Base produces goes to its send-to point** |
 | **Squads form by themselves** | entities of the same team in the same place **at the start of a turn** become a squad by default; a rendezvous is where you gather them on purpose |
 | Travel | the slow mode: a squad moves at its slowest member's speed |
 | Arrival at an enemy | the fight resolves itself from the figures; sparks and a result word on the map |
