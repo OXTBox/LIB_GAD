@@ -15,3 +15,7 @@ notes and a sample save are tracked.
 
 - `GeneticAnomaly/`: the Genetic Anomaly Detector prototype, moved from LIB_GAMES (its home is here now)
 - `ui/GenericaAnyData_04042018a/`: the 2018 Galactica 3-based GUI (XTJSON harvest), the base for GAD's own UI
+
+## Licence
+
+GPL-3.0 (see `LICENSE`), because the xTalk work here is built on the GPL-licensed LiveCode Community 9 engine. Copyright (c) 2026 xAction.
