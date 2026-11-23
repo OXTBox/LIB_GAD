@@ -493,6 +493,11 @@ on GA.ApplyView
    end repeat
 end GA.ApplyView
 
+-- arrows are read from the keysDown once a frame (GA.Keys); this stops them reaching the engine's
+-- card navigation (Left = previous card), the Bat Duel crash, ISSUES 0017 / 0020
+on arrowKey pKey
+end arrowKey
+
 -- the mouse wheel zooms (wheel keys arrive as rawKeyDown 65308 down / 65309 up); others go on
 on rawKeyDown pKey
    if pKey is 65309 then
